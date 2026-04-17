@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PrinterCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAction } from 'next-safe-action/hooks';
 import { useForm } from 'react-hook-form';
@@ -49,9 +50,12 @@ export function LoginForm() {
         }}
       >
         <div className="text-center">
-          <p className="text-2xl font-bold tracking-tight" style={{ color: '#3525cd' }}>
-            Printly
-          </p>
+          <div className="flex items-center gap-1.5 justify-center">
+            <PrinterCheck className="size-6 text-primary" strokeWidth={2.25} />
+            <p className="text-2xl font-bold tracking-tight" style={{ color: '#3525cd' }}>
+              Printly
+            </p>
+          </div>
           <h1 className="mt-3 text-xl font-semibold tracking-tight" style={{ color: '#191c1d' }}>
             Bienvenido
           </h1>

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function LandingHero() {
   return (
-    <section className="mx-auto max-w-4xl px-8 py-28 text-center">
+    <section className="container-custom py-28 text-center">
       <h1 className="text-5xl font-bold tracking-tight leading-tight mb-6" style={{ color: '#191c1d' }}>
         El cotizador que tu imprenta necesita
       </h1>

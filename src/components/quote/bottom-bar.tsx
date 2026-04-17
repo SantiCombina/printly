@@ -18,7 +18,7 @@ export function BottomBar({ total, onSale, onBudget, isLoading, isEmpty }: Botto
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-[0_-4px_20px_rgba(25,28,29,0.06)]">
-      <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="container-custom py-4 flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-xs text-gray-400 font-medium">Total</span>
           <span className="text-2xl font-bold text-gray-900">{formatPrice(total)}</span>

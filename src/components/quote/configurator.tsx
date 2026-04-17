@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RotateCcw } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
@@ -48,7 +49,7 @@ function PillToggle({ value, active, onClick }: { value: string; active: boolean
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{children}</h3>;
+  return <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">{children}</h3>;
 }
 
 export function Configurator({ priceConfig, availableOptions, onAdd }: ConfiguratorProps) {
@@ -121,32 +122,50 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
 
   return (
     <div className="bg-white rounded-xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)] p-6 flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Configurar trabajo</h2>
-        <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2">
-          <span className="text-xs text-indigo-500 font-medium">Total</span>
-          <span className="text-2xl font-bold text-indigo-600">{formatPrice(calculation.totalPrice)}</span>
+      <div className="flex items-start justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Cotizador Rápido</span>
+          <h2 className="text-2xl font-bold text-gray-900">Nueva Configuración</h2>
+        </div>
+        <div className="flex items-center gap-3 bg-indigo-50 rounded-2xl px-5 py-3">
+          <span className="text-xs font-bold tracking-widest text-indigo-500">SUBTOTAL TRABAJO</span>
+          <span className="text-2xl font-bold text-indigo-700">{formatPrice(calculation.totalPrice)}</span>
         </div>
       </div>
 
       <Form {...form}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div>
-            <SectionTitle>Páginas</SectionTitle>
+            <SectionTitle>Cantidad de páginas</SectionTitle>
             <FormField
               control={form.control}
               name="pages"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      max={9999}
-                      className="text-4xl font-bold h-16 text-center w-32"
-                      {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 1)}
-                    />
+                    <div className="flex items-center gap-3">
+                      <Input
+                        type="number"
+                        min={1}
+                        max={9999}
+                        className="text-4xl font-bold h-16 text-center w-32"
+                        {...field}
+                        onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 1)}
+                      />
+                      <Button
+                        type="submit"
+                        className="rounded-full bg-[#4F46E5] hover:bg-[#4338ca] text-white px-8 h-12 text-base font-semibold"
+                      >
+                        + Agregar
+                      </Button>
+                      <button
+                        type="button"
+                        onClick={handleClear}
+                        className="h-12 w-12 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0"
+                      >
+                        <RotateCcw className="h-4 w-4 text-gray-500" />
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -154,143 +173,133 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
             />
           </div>
 
-          <div>
-            <SectionTitle>Papel</SectionTitle>
-            <div className="flex flex-col gap-3">
-              <div>
-                <Label className="text-xs text-gray-400 mb-2 block">Tamaño</Label>
-                <FormField
-                  control={form.control}
-                  name="size"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex flex-wrap gap-2">
-                          {availableOptions.sizes.map((size) => (
-                            <PillToggle
-                              key={size}
-                              value={size}
-                              active={field.value === size}
-                              onClick={() => field.onChange(size)}
-                            />
-                          ))}
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div>
-                <Label className="text-xs text-gray-400 mb-2 block">Gramaje</Label>
-                <FormField
-                  control={form.control}
-                  name="weight"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex flex-wrap gap-2">
-                          {currentWeights.map((w) => (
-                            <PillToggle
-                              key={w}
-                              value={w}
-                              active={field.value === w}
-                              onClick={() => field.onChange(w)}
-                            />
-                          ))}
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <SectionTitle>Tamaño</SectionTitle>
+              <FormField
+                control={form.control}
+                name="size"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-wrap gap-2">
+                        {availableOptions.sizes.map((size) => (
+                          <PillToggle
+                            key={size}
+                            value={size}
+                            active={field.value === size}
+                            onClick={() => field.onChange(size)}
+                          />
+                        ))}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div>
+              <SectionTitle>Tinta</SectionTitle>
+              <FormField
+                control={form.control}
+                name="format"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-wrap gap-2">
+                        {availableOptions.inkFormats.map((fmt) => (
+                          <PillToggle
+                            key={fmt}
+                            value={fmt === 'blancoNegro' ? 'B/N' : 'Color'}
+                            active={field.value === fmt}
+                            onClick={() => field.onChange(fmt)}
+                          />
+                        ))}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
 
-          <div>
-            <SectionTitle>Impresión</SectionTitle>
-            <div className="flex flex-col gap-3">
-              <div>
-                <Label className="text-xs text-gray-400 mb-2 block">Formato</Label>
-                <FormField
-                  control={form.control}
-                  name="format"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex flex-wrap gap-2">
-                          {availableOptions.inkFormats.map((fmt) => (
-                            <PillToggle
-                              key={fmt}
-                              value={fmt === 'blancoNegro' ? 'B/N' : 'Color'}
-                              active={field.value === fmt}
-                              onClick={() => field.onChange(fmt)}
-                            />
-                          ))}
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <SectionTitle>Gramaje</SectionTitle>
+              <FormField
+                control={form.control}
+                name="weight"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-wrap gap-2">
+                        {currentWeights.map((w) => (
+                          <PillToggle key={w} value={w} active={field.value === w} onClick={() => field.onChange(w)} />
+                        ))}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-              {selectedFormat === 'color' && colorPercentages.length > 0 && (
-                <div>
-                  <Label className="text-xs text-gray-400 mb-2 block">Porcentaje de color</Label>
-                  <FormField
-                    control={form.control}
-                    name="percentage"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <div className="flex flex-wrap gap-2">
-                            {colorPercentages.map((pct) => (
-                              <PillToggle
-                                key={pct}
-                                value={pct}
-                                active={field.value === pct}
-                                onClick={() => field.onChange(pct)}
-                              />
-                            ))}
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
-
-              <div>
-                <Label className="text-xs text-gray-400 mb-2 block">Faz</Label>
-                <FormField
-                  control={form.control}
-                  name="side"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex flex-wrap gap-2">
-                          <PillToggle
-                            value="Simple faz"
-                            active={field.value === 'simple'}
-                            onClick={() => field.onChange('simple')}
-                          />
-                          <PillToggle
-                            value="Doble faz"
-                            active={field.value === 'double'}
-                            onClick={() => field.onChange('double')}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <div>
+              <SectionTitle>Faz</SectionTitle>
+              <FormField
+                control={form.control}
+                name="side"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-wrap gap-2">
+                        <PillToggle
+                          value="Simple faz"
+                          active={field.value === 'simple'}
+                          onClick={() => field.onChange('simple')}
+                        />
+                        <PillToggle
+                          value="Doble faz"
+                          active={field.value === 'double'}
+                          onClick={() => field.onChange('double')}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
+
+          {selectedFormat === 'color' && colorPercentages.length > 0 && (
+            <div>
+              <SectionTitle>Porcentaje de color</SectionTitle>
+              <FormField
+                control={form.control}
+                name="percentage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-wrap gap-2">
+                        {colorPercentages.map((pct) => (
+                          <PillToggle
+                            key={pct}
+                            value={pct}
+                            active={field.value === pct}
+                            onClick={() => field.onChange(pct)}
+                          />
+                        ))}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          )}
 
           <div>
             <SectionTitle>Anillado</SectionTitle>
@@ -363,15 +372,6 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
                 </FormItem>
               )}
             />
-          </div>
-
-          <div className="flex gap-3 pt-2">
-            <Button type="submit" className="flex-1 rounded-full bg-linear-to-r from-[#3525cd] to-[#4F46E5] text-white">
-              Agregar trabajo
-            </Button>
-            <Button type="button" variant="outline" className="rounded-full" onClick={handleClear}>
-              Limpiar
-            </Button>
           </div>
         </form>
       </Form>

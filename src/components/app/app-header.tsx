@@ -1,3 +1,4 @@
+import { PrinterCheck } from 'lucide-react';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { getPayload } from 'payload';
@@ -15,39 +16,44 @@ export async function AppHeader() {
 
   return (
     <header
-      className="sticky top-0 z-50 flex items-center justify-between px-8 h-14"
+      className="sticky top-0 z-50 h-14"
       style={{ background: '#ffffff', boxShadow: '0px 1px 0px rgba(25,28,29,0.08)' }}
     >
-      <div className="flex items-center gap-8">
-        <span className="text-lg font-bold tracking-tight" style={{ color: '#3525cd' }}>
-          Printly
-        </span>
-        <nav className="flex items-center gap-1">
-          <Link
-            href="/app"
-            className="px-4 py-1.5 text-sm font-medium rounded-full transition-colors hover:bg-gray-100"
-            style={{ color: '#191c1d' }}
-          >
-            Cotizador
-          </Link>
-          {typedUser?.role === 'owner' && (
+      <div className="container-custom flex items-center justify-between h-full">
+        <div className="flex items-center gap-8">
+          <div className="flex items-center gap-1.5">
+            <PrinterCheck className="size-6 text-primary" strokeWidth={2.25} />
+            <span className="text-lg font-bold tracking-tight" style={{ color: '#3525cd' }}>
+              Printly
+            </span>
+          </div>
+          <nav className="flex items-center gap-1">
             <Link
-              href="/app/settings"
+              href="/app"
               className="px-4 py-1.5 text-sm font-medium rounded-full transition-colors hover:bg-gray-100"
               style={{ color: '#191c1d' }}
             >
-              Configuración
+              Cotizador
             </Link>
+            {typedUser?.role === 'owner' && (
+              <Link
+                href="/app/settings"
+                className="px-4 py-1.5 text-sm font-medium rounded-full transition-colors hover:bg-gray-100"
+                style={{ color: '#191c1d' }}
+              >
+                Configuración
+              </Link>
+            )}
+          </nav>
+        </div>
+        <div className="flex items-center gap-3">
+          {typedUser && (
+            <span className="text-sm" style={{ color: '#464555' }}>
+              {typedUser.username}
+            </span>
           )}
-        </nav>
-      </div>
-      <div className="flex items-center gap-3">
-        {typedUser && (
-          <span className="text-sm" style={{ color: '#464555' }}>
-            {typedUser.username}
-          </span>
-        )}
-        <LogoutButton />
+          <LogoutButton />
+        </div>
       </div>
     </header>
   );

@@ -30,12 +30,5 @@ export default async function SellersPage() {
     createdAt: s.createdAt,
   }));
 
-  return (
-    <div className="min-h-screen bg-[#f8f9fa] p-6">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Vendedores</h1>
-        <SellersClient sellers={sellers} />
-      </div>
-    </div>
-  );
+  return <SellersClient sellers={sellers} />;
 }

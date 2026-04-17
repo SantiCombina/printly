@@ -24,11 +24,9 @@ export default async function AppPage() {
   const availableOptions = deriveAvailableOptions(priceConfig);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] p-6">
-      <div className="max-w-screen-xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Cotizador</h1>
-        <QuotePageClient priceConfig={priceConfig} availableOptions={availableOptions} />
-      </div>
-    </div>
+    <>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Cotizador</h1>
+      <QuotePageClient priceConfig={priceConfig} availableOptions={availableOptions} />
+    </>
   );
 }

@@ -20,7 +20,7 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <section className="mx-auto max-w-5xl px-8 pb-24">
+    <section className="container-custom pb-24">
       <h2 className="text-3xl font-bold tracking-tight text-center mb-12" style={{ color: '#191c1d' }}>
         Todo lo que necesitás
       </h2>

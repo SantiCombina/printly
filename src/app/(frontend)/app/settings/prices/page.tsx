@@ -39,11 +39,6 @@ export default async function PricesPage() {
   const bindingPrices = bindingDocs.docs.map((d) => ({ id: d.id, quantityRange: d.quantityRange, price: d.price }));
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] p-6">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Precios</h1>
-        <PricesClient paperPrices={paperPrices} inkPrices={inkPrices} margins={margins} bindingPrices={bindingPrices} />
-      </div>
-    </div>
+    <PricesClient paperPrices={paperPrices} inkPrices={inkPrices} margins={margins} bindingPrices={bindingPrices} />
   );
 }

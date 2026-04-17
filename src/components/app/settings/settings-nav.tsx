@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { cn } from '@/lib/utils';
 
 const navItems = [
   { label: 'Precios', href: '/app/settings/prices' },
@@ -6,27 +11,25 @@ const navItems = [
 ];
 
 export function SettingsNav() {
+  const pathname = usePathname();
+
   return (
-    <aside
-      className="shrink-0 flex flex-col gap-1 py-4 px-3"
-      style={{
-        width: '240px',
-        background: '#ffffff',
-        borderRadius: '12px',
-        boxShadow: '0px 20px 40px rgba(25,28,29,0.06)',
-        alignSelf: 'start',
-      }}
-    >
-      {navItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className="px-3 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-gray-100"
-          style={{ color: '#191c1d' }}
-        >
-          {item.label}
-        </Link>
-      ))}
+    <aside className="w-56 shrink-0 self-start bg-white rounded-xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)] py-3 px-2">
+      {navItems.map((item) => {
+        const isActive = pathname.startsWith(item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              'flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors',
+              isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900',
+            )}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
     </aside>
   );
 }
