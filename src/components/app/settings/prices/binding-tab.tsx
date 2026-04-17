@@ -68,8 +68,12 @@ export function BindingTab({ rows }: { rows: BindingPriceRow[] }) {
       <div className="flex justify-end">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="rounded-full gap-1">
-              <PlusIcon /> Agregar
+            <Button
+              type="button"
+              className="flex items-center gap-1.5 px-5 h-9 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-90"
+              style={{ background: 'linear-gradient(135deg, #3525cd 0%, #4F46E5 100%)' }}
+            >
+              <PlusIcon className="size-3.5" /> Agregar
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -110,7 +114,7 @@ export function BindingTab({ rows }: { rows: BindingPriceRow[] }) {
                   )}
                 />
                 <DialogFooter>
-                  <Button type="submit" disabled={isCreating}>
+                  <Button type="submit" disabled={isCreating} className="rounded-full">
                     Guardar
                   </Button>
                 </DialogFooter>
@@ -130,7 +134,7 @@ export function BindingTab({ rows }: { rows: BindingPriceRow[] }) {
         <TableBody>
           {list.length === 0 && (
             <TableRow>
-              <TableCell colSpan={3} className="text-center text-gray-400">
+              <TableCell colSpan={3} className="py-10 text-center text-sm text-gray-400">
                 Sin registros
               </TableCell>
             </TableRow>

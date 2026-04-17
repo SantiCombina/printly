@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { loginAction } from '@/app/(frontend)/login/actions';
+import { Button } from '@/components/ui/button';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'El usuario es requerido'),
@@ -117,14 +118,14 @@ export function LoginForm() {
             )}
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isExecuting}
             className="w-full py-2.5 text-sm font-semibold text-white mt-1 transition-opacity hover:opacity-90 disabled:opacity-60"
             style={{ borderRadius: '9999px', background: 'linear-gradient(135deg, #3525cd, #4F46E5)' }}
           >
             {isExecuting ? 'Ingresando...' : 'Iniciar sesión'}
-          </button>
+          </Button>
         </form>
       </div>
     </div>

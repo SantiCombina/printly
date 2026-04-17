@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { getPayload } from 'payload';
 import { z } from 'zod';
 
@@ -13,7 +14,7 @@ export const createSellerAction = actionClient
   .schema(z.object({ username: z.string().min(1), password: z.string().min(6) }))
   .action(async ({ parsedInput }) => {
     const payload = await getPayload({ config });
-    const { user } = await payload.auth({ headers: new Headers() });
+    const { user } = await payload.auth({ headers: await headers() });
     if (!user) throw new Error('No autenticado');
     const ownerId = getOwnerIdForUser(user as User);
     if (!ownerId) throw new Error('Owner no encontrado');
@@ -31,7 +32,7 @@ export const createSellerAction = actionClient
 
 export const deleteSellerAction = actionClient.schema(z.object({ id: z.number() })).action(async ({ parsedInput }) => {
   const payload = await getPayload({ config });
-  const { user } = await payload.auth({ headers: new Headers() });
+  const { user } = await payload.auth({ headers: await headers() });
   if (!user) throw new Error('No autenticado');
   const ownerId = getOwnerIdForUser(user as User);
   if (!ownerId) throw new Error('Owner no encontrado');

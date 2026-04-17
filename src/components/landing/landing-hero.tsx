@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { Button } from '@/components/ui/button';
+
 export function LandingHero() {
   return (
     <section className="container-custom py-28 text-center">
@@ -18,13 +20,13 @@ export function LandingHero() {
         >
           Empezar ahora
         </Link>
-        <button
+        <Button
           type="button"
           className="px-8 py-3 text-base font-semibold transition-opacity hover:opacity-80"
           style={{ borderRadius: '9999px', background: '#e7e8e9', color: '#191c1d' }}
         >
           Ver demo
-        </button>
+        </Button>
       </div>
     </section>
   );

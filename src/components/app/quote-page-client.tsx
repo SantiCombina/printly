@@ -66,11 +66,11 @@ export function QuotePageClient({ priceConfig, availableOptions }: QuotePageClie
 
   return (
     <>
-      <div className="flex gap-6 items-start pb-28">
-        <div className="w-3/5">
+      <div className="grid grid-cols-12 gap-6 items-start">
+        <div className="col-span-12 lg:col-span-7">
           <Configurator priceConfig={priceConfig} availableOptions={availableOptions} onAdd={handleAdd} />
         </div>
-        <div className="w-2/5">
+        <div className="col-span-12 lg:col-span-5 sticky top-20">
           <WorkTable items={items} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
       </div>

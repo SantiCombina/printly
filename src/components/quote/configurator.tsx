@@ -35,21 +35,26 @@ interface ConfiguratorProps {
 
 function PillToggle({ value, active, onClick }: { value: string; active: boolean; onClick: () => void }) {
   return (
-    <button
+    <Button
       type="button"
       onClick={onClick}
       className={cn(
-        'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-        active ? 'bg-[#4F46E5] text-white' : 'bg-[#e7e8e9] text-[#191c1d] hover:bg-gray-200',
+        'rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all',
+        active ? 'text-white shadow-sm' : 'text-[#464555] hover:bg-[#d9dadb]',
       )}
+      style={active ? { background: 'linear-gradient(135deg, #3525cd 0%, #4F46E5 100%)' } : { background: '#e7e8e9' }}
     >
       {value}
-    </button>
+    </Button>
   );
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">{children}</h3>;
+  return (
+    <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#9ca3af' }}>
+      {children}
+    </p>
+  );
 }
 
 export function Configurator({ priceConfig, availableOptions, onAdd }: ConfiguratorProps) {
@@ -121,15 +126,23 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)] p-6 flex flex-col gap-6">
-      <div className="flex items-start justify-between">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Cotizador Rápido</span>
-          <h2 className="text-2xl font-bold text-gray-900">Nueva Configuración</h2>
+    <div
+      className="bg-white rounded-2xl p-8 flex flex-col gap-6"
+      style={{ boxShadow: '0px 20px 40px rgba(25,28,29,0.06)' }}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight" style={{ color: '#191c1d' }}>
+            Nuevo trabajo
+          </h2>
         </div>
-        <div className="flex items-center gap-3 bg-indigo-50 rounded-2xl px-5 py-3">
-          <span className="text-xs font-bold tracking-widest text-indigo-500">SUBTOTAL TRABAJO</span>
-          <span className="text-2xl font-bold text-indigo-700">{formatPrice(calculation.totalPrice)}</span>
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: 'rgba(79,70,229,0.08)' }}>
+          <span className="text-xs font-bold tracking-widest" style={{ color: '#4F46E5' }}>
+            SUBTOTAL
+          </span>
+          <span className="text-2xl font-black" style={{ color: '#3525cd' }}>
+            {formatPrice(calculation.totalPrice)}
+          </span>
         </div>
       </div>
 
@@ -148,23 +161,34 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
                         type="number"
                         min={1}
                         max={9999}
-                        className="text-4xl font-bold h-16 text-center w-32"
+                        className="text-4xl font-black h-16 text-center w-36 border-none rounded-xl"
+                        style={{ background: '#f3f4f5', color: '#191c1d' }}
                         {...field}
                         onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 1)}
                       />
                       <Button
                         type="submit"
-                        className="rounded-full bg-[#4F46E5] hover:bg-[#4338ca] text-white px-8 h-12 text-base font-semibold"
+                        className="h-14 px-8 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-90 flex items-center gap-2 shadow-md"
+                        style={{ background: 'linear-gradient(135deg, #3525cd 0%, #4F46E5 100%)' }}
                       >
                         + Agregar
                       </Button>
-                      <button
+                      <Button
                         type="button"
+                        variant="ghost"
+                        size="icon"
                         onClick={handleClear}
-                        className="h-12 w-12 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0"
+                        className="h-14 w-14 rounded-full shrink-0"
+                        style={{ background: '#e7e8e9', color: '#464555' }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#d9dadb';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#e7e8e9';
+                        }}
                       >
-                        <RotateCcw className="h-4 w-4 text-gray-500" />
-                      </button>
+                        <RotateCcw className="h-4 w-4" />
+                      </Button>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -173,7 +197,7 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-8">
             <div>
               <SectionTitle>Tamaño</SectionTitle>
               <FormField
@@ -225,7 +249,7 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-8">
             <div>
               <SectionTitle>Gramaje</SectionTitle>
               <FormField
@@ -303,8 +327,8 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
 
           <div>
             <SectionTitle>Anillado</SectionTitle>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-2.5">
                 <Checkbox
                   id="binding-toggle"
                   checked={hasBinding}
@@ -312,7 +336,11 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
                     form.setValue('bindingQuantity', checked ? 1 : 0);
                   }}
                 />
-                <Label htmlFor="binding-toggle" className="cursor-pointer">
+                <Label
+                  htmlFor="binding-toggle"
+                  className="cursor-pointer text-sm font-medium"
+                  style={{ color: '#191c1d' }}
+                >
                   Incluir anillado
                 </Label>
               </div>
@@ -322,12 +350,15 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
                   name="bindingQuantity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Cantidad de anillados</FormLabel>
+                      <FormLabel className="text-xs font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
+                        Cantidad de anillados
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
                           min={1}
-                          className="w-28"
+                          className="w-28 border-none rounded-xl"
+                          style={{ background: '#f3f4f5' }}
                           {...field}
                           onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 0)}
                         />
@@ -346,11 +377,15 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
               name="additional"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Adicional ($)</FormLabel>
+                  <FormLabel className="text-xs font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
+                    Adicional ($)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       min={0}
+                      className="border-none rounded-xl"
+                      style={{ background: '#f3f4f5' }}
                       {...field}
                       onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                     />
@@ -364,9 +399,18 @@ export function Configurator({ priceConfig, availableOptions, onAdd }: Configura
               name="remarks"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Observaciones</FormLabel>
+                  <FormLabel className="text-xs font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
+                    Observaciones
+                  </FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="Opcional..." {...field} value={field.value ?? ''} />
+                    <Input
+                      type="text"
+                      placeholder="Opcional..."
+                      className="border-none rounded-xl"
+                      style={{ background: '#f3f4f5' }}
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

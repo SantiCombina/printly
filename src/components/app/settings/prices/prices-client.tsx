@@ -37,54 +37,54 @@ interface PricesClientProps {
   bindingPrices: BindingPriceRow[];
 }
 
+const triggerClass =
+  'rounded-none border-b-2 border-transparent data-[state=active]:border-[#3525cd] data-[state=active]:text-[#3525cd] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 pb-3 pt-0 text-sm font-semibold text-[#777587] hover:text-[#191c1d] transition-colors';
+
 export function PricesClient({ paperPrices, inkPrices, margins, bindingPrices }: PricesClientProps) {
   return (
-    <div className="bg-white rounded-xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)]">
-      <div className="px-6 pt-6 pb-0 border-b border-gray-100">
-        <h2 className="text-base font-semibold text-gray-900 mb-4">Precios</h2>
-        <Tabs defaultValue="paper">
-          <TabsList className="w-full justify-start rounded-none bg-transparent border-b-0 p-0 gap-0 -mb-px">
-            <TabsTrigger
-              value="paper"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-700 data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-            >
+    <div className="bg-white rounded-2xl" style={{ boxShadow: '0px 20px 40px rgba(25,28,29,0.06)' }}>
+      <Tabs defaultValue="paper">
+        <div className="px-6 pt-6" style={{ borderBottom: '1px solid rgba(199,196,216,0.2)' }}>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
+                Configuración
+              </p>
+              <h2 className="text-lg font-bold tracking-tight" style={{ color: '#191c1d' }}>
+                Precios
+              </h2>
+            </div>
+          </div>
+          <TabsList className="w-full justify-start rounded-none bg-transparent border-b-0 p-0 gap-0 -mb-px h-auto">
+            <TabsTrigger value="paper" className={triggerClass}>
               Papel
             </TabsTrigger>
-            <TabsTrigger
-              value="ink"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-700 data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-            >
+            <TabsTrigger value="ink" className={triggerClass}>
               Tinta
             </TabsTrigger>
-            <TabsTrigger
-              value="margins"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-700 data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-            >
+            <TabsTrigger value="margins" className={triggerClass}>
               Márgenes
             </TabsTrigger>
-            <TabsTrigger
-              value="binding"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-700 data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-            >
+            <TabsTrigger value="binding" className={triggerClass}>
               Anillado
             </TabsTrigger>
           </TabsList>
-          <div className="p-6">
-            <TabsContent value="paper" className="mt-0">
-              <PaperTab rows={paperPrices} />
-            </TabsContent>
-            <TabsContent value="ink" className="mt-0">
-              <InkTab rows={inkPrices} />
-            </TabsContent>
-            <TabsContent value="margins" className="mt-0">
-              <MarginsTab rows={margins} />
-            </TabsContent>
-            <TabsContent value="binding" className="mt-0">
-              <BindingTab rows={bindingPrices} />
-            </TabsContent>
-          </div>
-        </Tabs>
-      </div>
+        </div>
+        <div className="p-6">
+          <TabsContent value="paper" className="mt-0">
+            <PaperTab rows={paperPrices} />
+          </TabsContent>
+          <TabsContent value="ink" className="mt-0">
+            <InkTab rows={inkPrices} />
+          </TabsContent>
+          <TabsContent value="margins" className="mt-0">
+            <MarginsTab rows={margins} />
+          </TabsContent>
+          <TabsContent value="binding" className="mt-0">
+            <BindingTab rows={bindingPrices} />
+          </TabsContent>
+        </div>
+      </Tabs>
     </div>
   );
 }

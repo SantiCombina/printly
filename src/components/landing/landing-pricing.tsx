@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { Button } from '@/components/ui/button';
+
 const basicFeatures = ['1 imprenta', 'Hasta 2 vendedores', 'Cotizador completo', 'Configuración de precios'];
 
 const proFeatures = [
@@ -40,13 +42,13 @@ export function LandingPricing() {
               </li>
             ))}
           </ul>
-          <button
+          <Button
             type="button"
             className="w-full py-3 text-sm font-semibold transition-opacity hover:opacity-80"
             style={{ borderRadius: '9999px', background: '#e7e8e9', color: '#191c1d' }}
           >
             Comenzar
-          </button>
+          </Button>
         </div>
 
         <div

@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 import { getPayload } from 'payload';
 import { z } from 'zod';
 
@@ -12,7 +13,7 @@ import config from '@payload-config';
 
 async function resolveOwnerId(): Promise<{ payload: Awaited<ReturnType<typeof getPayload>>; ownerId: number }> {
   const payload = await getPayload({ config });
-  const { user } = await payload.auth({ headers: new Headers() });
+  const { user } = await payload.auth({ headers: await headers() });
   if (!user) throw new Error('No autenticado');
   const ownerId = getOwnerIdForUser(user as User);
   if (!ownerId) throw new Error('Owner no encontrado');

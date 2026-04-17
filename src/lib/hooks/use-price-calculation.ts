@@ -25,15 +25,34 @@ function pageCountInRange(pages: number, range: string): boolean {
   if (plusMatch) {
     return pages >= parseInt(plusMatch[1], 10);
   }
-  const exactMatch = range.match(/^(\d+)$/);
-  if (exactMatch) {
-    return pages === parseInt(exactMatch[1], 10);
-  }
   const rangeMatch = range.match(/^(\d+)-(\d+)$/);
   if (rangeMatch) {
     return pages >= parseInt(rangeMatch[1], 10) && pages <= parseInt(rangeMatch[2], 10);
   }
+  const exactMatch = range.match(/^(\d+)$/);
+  if (exactMatch) {
+    return pages === parseInt(exactMatch[1], 10);
+  }
   return false;
+}
+
+function getValueForPages<T>(pages: number, entries: Array<[string, T]>): T | undefined {
+  for (const [range, value] of entries) {
+    if (pageCountInRange(pages, range)) return value;
+  }
+  let fallbackValue: T | undefined;
+  let fallbackFloor = -1;
+  for (const [range, value] of entries) {
+    const exactMatch = range.match(/^(\d+)$/);
+    if (exactMatch) {
+      const floor = parseInt(exactMatch[1], 10);
+      if (pages >= floor && floor > fallbackFloor) {
+        fallbackFloor = floor;
+        fallbackValue = value;
+      }
+    }
+  }
+  return fallbackValue;
 }
 
 function getMarginForPages(
@@ -43,19 +62,16 @@ function getMarginForPages(
 ): number {
   const formatMargins = profitMargins[format];
   if (!formatMargins) return 1;
-  for (const [range, margin] of Object.entries(formatMargins)) {
-    if (pageCountInRange(pages, range)) return margin;
-  }
-  return 1;
+  const result = getValueForPages(pages, Object.entries(formatMargins));
+  return result ?? 1;
 }
 
 function getBindingPrice(pages: number, bindingQuantity: number, bindingPrices: Record<string, number>): number {
   if (bindingQuantity === 0) return 0;
   const sheetsPerCopy = pages / bindingQuantity;
-  for (const [range, price] of Object.entries(bindingPrices)) {
-    if (pageCountInRange(sheetsPerCopy, range)) return price * bindingQuantity;
-  }
-  return 0;
+  const result = getValueForPages(sheetsPerCopy, Object.entries(bindingPrices));
+  if (result === undefined) return 0;
+  return result * bindingQuantity;
 }
 
 interface UsePriceCalculationInput {

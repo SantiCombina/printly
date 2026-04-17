@@ -19,7 +19,18 @@
       "Bash(pnpm generate:types *)",
       "Bash(npx tsc *)",
       "Bash(echo \"EXIT: $?\")",
-      "Bash(pnpm exec *)"
+      "Bash(pnpm exec *)",
+      "Bash(npx tsx *)",
+      "Bash(./node_modules/.bin/tsx src/lib/seed/run-seed.ts)",
+      "Bash(npm install *)",
+      "Bash(npx *)",
+      "Bash(where node *)",
+      "Bash(where pnpm *)",
+      "Bash(pnpm --version)",
+      "Bash(DOTENV_CONFIG_PATH=/c/Users/santi/Documents/Workspace/printly/.env.local pnpm exec *)",
+      "Bash(curl -s \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzRlODM2YTJiY2Q5OTRlM2M4ZGIxMjRkMGVkOGVhMDQ0EgoSBhCnkIOLDBgBkgEkCgpwcm9qZWN0X2lkEhZCFDE0ODQ5NTg0Nzk5NjM0Mjk4MDg1&filename=&opi=89354086\")",
+      "Bash(curl -s \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2Y3NmM2ZWViNzNlNjQxODJhMTg3Yzc2M2Y4ODYxZjVhEgoSBhCnkIOLDBgBkgEkCgpwcm9qZWN0X2lkEhZCFDE0ODQ5NTg0Nzk5NjM0Mjk4MDg1&filename=&opi=89354086\")",
+      "Bash(curl *)"
     ]
   }
 }

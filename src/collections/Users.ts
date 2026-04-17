@@ -80,7 +80,7 @@ export const Users: CollectionConfig = {
     ],
     afterChange: [
       async ({ doc, operation, req }) => {
-        if (operation !== 'create' || doc.role !== 'owner') return;
+        if (operation !== 'create' || (doc.role !== 'owner' && doc.role !== 'admin')) return;
 
         const ownerId = doc.id as number;
 
