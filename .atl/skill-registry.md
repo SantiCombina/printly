@@ -1,41 +1,38 @@
-# Skill Registry
+# Skill Registry — printly
 
-**Project**: printly
-**Generated**: 2026-04-16
+Generated: 2026-04-16
 
 ## User-Level Skills (`~/.claude/skills/`)
 
 | Skill | Trigger Summary |
 |-------|----------------|
-| sdd-explore | Explore/investigate ideas before committing to a change |
-| sdd-propose | Create a change proposal with intent, scope, approach |
-| sdd-spec | Write specifications with requirements and scenarios |
-| sdd-design | Create technical design document with architecture decisions |
-| sdd-tasks | Break down a change into an implementation task checklist |
-| sdd-apply | Implement tasks from the change, writing actual code |
-| sdd-verify | Validate implementation matches specs, design, and tasks |
-| sdd-archive | Sync delta specs and archive a completed change |
-| sdd-onboard | Guided end-to-end SDD workflow walkthrough |
-| judgment-day | Parallel adversarial review — dual blind judge sub-agents |
-| skill-creator | Creates new AI agent skills |
-| branch-pr | PR creation workflow (issue-first enforcement) |
-| issue-creation | Issue creation workflow (issue-first enforcement) |
-| frontend-design | Production-grade frontend interfaces with high design quality |
-| next-best-practices | Next.js best practices (RSC, data patterns, metadata, etc.) |
-| payload | Payload CMS work (collections, hooks, access control, API) |
-| seo-audit | SEO audit, technical SEO diagnosis |
-| web-design-guidelines | UI code review for accessibility and design guidelines |
-| go-testing | Go testing patterns (Bubbletea TUI) |
+| branch-pr | PR creation workflow |
+| frontend-design | Build web components, pages, UI artifacts |
+| issue-creation | GitHub issue creation |
+| judgment-day | Adversarial dual-review protocol |
+| next-best-practices | Next.js conventions and best practices |
+| payload | Payload CMS — collections, fields, hooks, access control |
+| sdd-apply | Implement tasks from a change |
+| sdd-archive | Sync delta specs and archive completed change |
+| sdd-design | Technical design document |
+| sdd-explore | Explore ideas before committing to a change |
+| sdd-init | Initialize SDD context |
+| sdd-propose | Create change proposal |
+| sdd-spec | Write specifications |
+| sdd-tasks | Break down change into task checklist |
+| sdd-verify | Validate implementation against specs |
+| seo-audit | SEO audit and review |
+| skill-creator | Create new AI agent skills |
 
 ## Project-Level Skills (`.claude/skills/`)
 
-| Skill | Trigger Summary |
-|-------|----------------|
-| payload | Payload CMS — project-level reference copy |
+| Skill | Notes |
+|-------|-------|
+| payload | Project-level Payload CMS skill (overrides user-level) |
 
-## Project Convention Files
+## Convention Files
 
 | File | Purpose |
 |------|---------|
-| CLAUDE.md | Project instructions — references payload skill |
-| `~/.claude/CLAUDE.md` | Global conventions (stack, TypeScript, UI, forms, git) |
+| `CLAUDE.md` (global) | Global conventions: stack, TypeScript, components, UI, forms, actions, git |
+| `CLAUDE.md` (project) | Points to Payload CMS skill |

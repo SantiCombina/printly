@@ -6,7 +6,11 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
-import { Media } from './collections/Media';
+import { BindingPrices } from './collections/BindingPrices';
+import { Counters } from './collections/Counters';
+import { InkPrices } from './collections/InkPrices';
+import { PaperPrices } from './collections/PaperPrices';
+import { ProfitMargins } from './collections/ProfitMargins';
 import { Users } from './collections/Users';
 
 const filename = fileURLToPath(import.meta.url);
@@ -19,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, PaperPrices, InkPrices, ProfitMargins, BindingPrices, Counters],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -68,7 +68,11 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
-    media: Media;
+    'paper-prices': PaperPrice;
+    'ink-prices': InkPrice;
+    'profit-margins': ProfitMargin;
+    'binding-prices': BindingPrice;
+    counters: Counter;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -77,7 +81,11 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    'paper-prices': PaperPricesSelect<false> | PaperPricesSelect<true>;
+    'ink-prices': InkPricesSelect<false> | InkPricesSelect<true>;
+    'profit-margins': ProfitMarginsSelect<false> | ProfitMarginsSelect<true>;
+    'binding-prices': BindingPricesSelect<false> | BindingPricesSelect<true>;
+    counters: CountersSelect<false> | CountersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -101,20 +109,18 @@ export interface Config {
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
+    username: string;
   };
   login: {
-    email: string;
     password: string;
+    username: string;
   };
   registerFirstUser: {
-    email: string;
     password: string;
+    username: string;
   };
   unlock: {
-    email: string;
-    password: string;
+    username: string;
   };
 }
 /**
@@ -123,9 +129,15 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  role: 'admin' | 'owner' | 'seller';
+  owner?: (number | null) | User;
+  localName?: string | null;
+  localPhone?: string | null;
+  localAddress?: string | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
+  email?: string | null;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -144,22 +156,77 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "paper-prices".
  */
-export interface Media {
+export interface PaperPrice {
   id: number;
-  alt: string;
+  owner?: (number | null) | User;
+  size: string;
+  weight: string;
+  price: number;
+  displayName?: string | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ink-prices".
+ */
+export interface InkPrice {
+  id: number;
+  owner?: (number | null) | User;
+  format: string;
+  percentage?: string | null;
+  price: number;
+  displayName?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "profit-margins".
+ */
+export interface ProfitMargin {
+  id: number;
+  owner?: (number | null) | User;
+  format: string;
+  quantityRange: string;
+  /**
+   * Multiplicador de precio (ej: 1.5 = 50% de margen)
+   */
+  margin: number;
+  displayName?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "binding-prices".
+ */
+export interface BindingPrice {
+  id: number;
+  owner?: (number | null) | User;
+  quantityRange: string;
+  price: number;
+  displayName?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "counters".
+ */
+export interface Counter {
+  id: number;
+  owner: number | User;
+  /**
+   * Formato DD-MM-YYYY
+   */
+  date: string;
+  salesCount?: number | null;
+  budgetsCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -190,8 +257,24 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'paper-prices';
+        value: number | PaperPrice;
+      } | null)
+    | ({
+        relationTo: 'ink-prices';
+        value: number | InkPrice;
+      } | null)
+    | ({
+        relationTo: 'profit-margins';
+        value: number | ProfitMargin;
+      } | null)
+    | ({
+        relationTo: 'binding-prices';
+        value: number | BindingPrice;
+      } | null)
+    | ({
+        relationTo: 'counters';
+        value: number | Counter;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -240,9 +323,15 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
+  owner?: T;
+  localName?: T;
+  localPhone?: T;
+  localAddress?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;
@@ -259,21 +348,66 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "paper-prices_select".
  */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
+export interface PaperPricesSelect<T extends boolean = true> {
+  owner?: T;
+  size?: T;
+  weight?: T;
+  price?: T;
+  displayName?: T;
   updatedAt?: T;
   createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ink-prices_select".
+ */
+export interface InkPricesSelect<T extends boolean = true> {
+  owner?: T;
+  format?: T;
+  percentage?: T;
+  price?: T;
+  displayName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "profit-margins_select".
+ */
+export interface ProfitMarginsSelect<T extends boolean = true> {
+  owner?: T;
+  format?: T;
+  quantityRange?: T;
+  margin?: T;
+  displayName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "binding-prices_select".
+ */
+export interface BindingPricesSelect<T extends boolean = true> {
+  owner?: T;
+  quantityRange?: T;
+  price?: T;
+  displayName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "counters_select".
+ */
+export interface CountersSelect<T extends boolean = true> {
+  owner?: T;
+  date?: T;
+  salesCount?: T;
+  budgetsCount?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

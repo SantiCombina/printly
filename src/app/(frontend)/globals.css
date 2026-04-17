@@ -48,6 +48,14 @@
 }
 
 :root {
+    --color-primary: #3525cd;
+    --color-primary-container: #4F46E5;
+    --color-surface: #ffffff;
+    --color-surface-low: #f8f9fa;
+    --color-surface-lowest: #f3f4f5;
+    --color-on-surface: #191c1d;
+    --color-on-surface-variant: #464555;
+    --color-tertiary: #10B981;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
