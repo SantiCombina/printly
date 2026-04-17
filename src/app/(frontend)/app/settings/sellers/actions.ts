@@ -28,7 +28,7 @@ export const createSellerAction = actionClient
         owner: ownerId,
       },
     });
-    revalidateTag(`settings-${ownerId}`);
+    revalidateTag(`settings-${ownerId}`, 'default');
     return { id: seller.id };
   });
 
@@ -42,6 +42,6 @@ export const deleteSellerAction = actionClient.schema(z.object({ id: z.number() 
   const sellerOwnerId = typeof seller.owner === 'number' ? seller.owner : seller.owner?.id;
   if (sellerOwnerId !== ownerId) throw new Error('No autorizado');
   await payload.delete({ collection: 'users', id: parsedInput.id });
-  revalidateTag(`settings-${ownerId}`);
+  revalidateTag(`settings-${ownerId}`, 'default');
   return { success: true };
 });

@@ -21,8 +21,8 @@ async function resolveOwnerId(): Promise<{ payload: Awaited<ReturnType<typeof ge
 }
 
 function invalidatePriceCache(ownerId: number) {
-  revalidateTag(`price-config-${ownerId}`);
-  revalidateTag(`settings-${ownerId}`);
+  revalidateTag(`price-config-${ownerId}`, 'default');
+  revalidateTag(`settings-${ownerId}`, 'default');
   revalidatePath('/app');
 }
 
