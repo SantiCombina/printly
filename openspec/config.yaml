@@ -1,0 +1,62 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 16 (App Router) + React 19, Payload CMS 3.83.0, TypeScript 5.7, Tailwind CSS 4, shadcn/ui, Lucide React
+  Database: PostgreSQL via @payloadcms/db-postgres
+  Architecture: Server Components by default, Payload collections + services pattern, next-safe-action
+  Style: kebab-case files, strict TypeScript (no any, no as), no barrel files
+  Path alias: @/ → src/
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  detected: "2026-04-16"
+  note: "No test infrastructure — intentionally removed at project start"
+
+  runner: ~
+  layers:
+    unit: { available: false }
+    integration: { available: false }
+    e2e: { available: false }
+  coverage: { available: false }
+
+  quality:
+    linter:
+      available: true
+      command: pnpm lint
+      tool: eslint + eslint-config-next
+    type_checker:
+      available: true
+      command: tsc --noEmit
+      tool: typescript 5.7
+    formatter:
+      available: true
+      command: prettier
+      tool: prettier
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected Payload collections and Next.js routes
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing code patterns and conventions
+    - Load payload skill for Payload CMS work
+    - Server Components by default, "use client" only when necessary
+  verify:
+    - Run pnpm test:int for integration tests
+    - Run pnpm test:e2e for E2E tests
+    - Run pnpm lint and tsc --noEmit for quality checks
+    - Compare implementation against every spec scenario
+  archive:
+    - Warn before merging destructive deltas (large removals)
