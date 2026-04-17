@@ -46,14 +46,7 @@ export function PricesClient({ paperPrices, inkPrices, margins, bindingPrices }:
       <Tabs defaultValue="paper">
         <div className="px-6 pt-6" style={{ borderBottom: '1px solid rgba(199,196,216,0.2)' }}>
           <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
-                Configuración
-              </p>
-              <h2 className="text-lg font-bold tracking-tight" style={{ color: '#191c1d' }}>
-                Precios
-              </h2>
-            </div>
+            <div />
           </div>
           <TabsList className="w-full justify-start rounded-none bg-transparent border-b-0 p-0 gap-0 -mb-px h-auto">
             <TabsTrigger value="paper" className={triggerClass}>

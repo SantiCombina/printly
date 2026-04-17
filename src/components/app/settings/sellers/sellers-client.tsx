@@ -80,14 +80,7 @@ export function SellersClient({ sellers: initial }: { sellers: SellerRow[] }) {
         className="px-6 pt-6 pb-4 flex items-center justify-between"
         style={{ borderBottom: '1px solid rgba(199,196,216,0.2)' }}
       >
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#9ca3af' }}>
-            Configuración
-          </p>
-          <h2 className="text-lg font-bold tracking-tight" style={{ color: '#191c1d' }}>
-            Vendedores
-          </h2>
-        </div>
+        <div />
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button
