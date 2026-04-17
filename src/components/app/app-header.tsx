@@ -1,17 +1,12 @@
 import { PrinterCheck } from 'lucide-react';
-import { headers } from 'next/headers';
-import { getPayload } from 'payload';
 
 import { AppNav } from '@/components/app/app-nav';
 import { LogoutButton } from '@/components/app/logout-button';
+import { getAuthUser } from '@/lib/auth-cache';
 import type { User } from '@/payload-types';
 
-import config from '@payload-config';
-
 export async function AppHeader() {
-  const headersList = await headers();
-  const payload = await getPayload({ config });
-  const { user } = await payload.auth({ headers: headersList });
+  const user = await getAuthUser();
   const typedUser = user as User | null;
 
   const navItems = [

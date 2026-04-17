@@ -1,16 +1,11 @@
-import { headers } from 'next/headers';
-import { getPayload } from 'payload';
-
-import { getPriceConfig, deriveAvailableOptions } from '@/app/services/prices';
 import { QuotePageClient } from '@/components/app/quote-page-client';
+import { getPriceConfig, deriveAvailableOptions } from '@/app/services/prices';
+import { getAuthUser } from '@/lib/auth-cache';
 import { getOwnerIdForUser } from '@/lib/access';
 import type { User } from '@/payload-types';
 
-import config from '@payload-config';
-
 export default async function AppPage() {
-  const payload = await getPayload({ config });
-  const { user } = await payload.auth({ headers: await headers() });
+  const user = await getAuthUser();
 
   if (!user) return null;
 
@@ -23,9 +18,5 @@ export default async function AppPage() {
   const priceConfig = await getPriceConfig(ownerId);
   const availableOptions = deriveAvailableOptions(priceConfig);
 
-  return (
-    <>
-      <QuotePageClient priceConfig={priceConfig} availableOptions={availableOptions} />
-    </>
-  );
+  return <QuotePageClient priceConfig={priceConfig} availableOptions={availableOptions} />;
 }

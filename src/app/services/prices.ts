@@ -81,7 +81,11 @@ async function fetchPriceConfig(ownerId: number): Promise<PriceConfig> {
 }
 
 export function getPriceConfig(ownerId: number): Promise<PriceConfig> {
-  return unstable_cache(() => fetchPriceConfig(ownerId), ['price-config', String(ownerId)], { revalidate: 300 })();
+  return unstable_cache(
+    () => fetchPriceConfig(ownerId),
+    ['price-config', String(ownerId)],
+    { revalidate: 300, tags: [`price-config-${ownerId}`] },
+  )();
 }
 
 export function deriveAvailableOptions(config: PriceConfig): AvailableOptions {

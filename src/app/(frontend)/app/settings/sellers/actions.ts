@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { getPayload } from 'payload';
 import { z } from 'zod';
@@ -27,6 +28,7 @@ export const createSellerAction = actionClient
         owner: ownerId,
       },
     });
+    revalidateTag(`settings-${ownerId}`);
     return { id: seller.id };
   });
 
@@ -40,5 +42,6 @@ export const deleteSellerAction = actionClient.schema(z.object({ id: z.number() 
   const sellerOwnerId = typeof seller.owner === 'number' ? seller.owner : seller.owner?.id;
   if (sellerOwnerId !== ownerId) throw new Error('No autorizado');
   await payload.delete({ collection: 'users', id: parsedInput.id });
+  revalidateTag(`settings-${ownerId}`);
   return { success: true };
 });
