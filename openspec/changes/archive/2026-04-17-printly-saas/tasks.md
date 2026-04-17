@@ -50,11 +50,11 @@
 
 - [x] 6.1 `pnpm lint` — sin errores
 - [x] 6.2 `tsc --noEmit` — sin errores de tipo
-- [ ] 6.3 Manual: visitar `/` sin sesión → ver landing; visitar `/` con sesión → redirect a `/app`
-- [ ] 6.4 Manual: login con owner → redirect a `/app/settings`; login con seller → redirect a `/app`
-- [ ] 6.5 Manual: seller intenta navegar a `/app/settings` → redirect a `/app`; intenta `/admin` → redirect a `/`
-- [ ] 6.6 Manual: owner crea nueva combinación de precio en settings → aparece como opción en el cotizador
-- [ ] 6.7 Manual: owner elimina gramaje "75g" para A4 → deja de aparecer en el cotizador al seleccionar A4
-- [ ] 6.8 Manual: owner crea seller → seller aparece en lista; owner elimina seller → seller no puede iniciar sesión
-- [ ] 6.9 Manual: seller registra venta → contador del tenant se incrementa, tabla se limpia
-- [ ] 6.10 Manual: admin crea owner → se generan precios base automáticamente en las 4 colecciones
+- [x] 6.3 Manual: visitar `/` sin sesión → ver landing; visitar `/` con sesión → redirect a `/app`
+- [x] 6.4 Manual: login con owner → redirect a `/app/settings`; login con seller → redirect a `/app`
+- [x] 6.5 Manual: seller intenta navegar a `/app/settings` → redirect a `/app`; intenta `/admin` → redirect a `/`
+- [x] 6.6 Manual: owner crea nueva combinación de precio en settings → aparece como opción en el cotizador
+- [x] 6.7 Manual: owner elimina gramaje "75g" para A4 → deja de aparecer en el cotizador al seleccionar A4
+- [x] 6.8 Manual: owner crea seller → seller aparece en lista; owner elimina seller → seller no puede iniciar sesión
+- [x] 6.9 Manual: seller registra venta → contador del tenant se incrementa, tabla se limpia
+- [x] 6.10 Manual: admin crea owner → se generan precios base automáticamente en las 4 colecciones
